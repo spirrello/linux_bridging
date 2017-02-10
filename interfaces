@@ -1,0 +1,37 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto enp11s0f0
+iface enp11s0f0 inet dhcp
+
+
+
+auto enp11s0f1.301
+iface enp11s0f1.301 inet manual
+      vlan-raw-device enp11s0f1
+
+auto enp11s0f1.900
+iface enp11s0f1.900 inet manual
+      vlan-raw-device enp11s0f1
+
+auto br301
+iface br301 inet manual
+        bridge_ports    enp11s0f1.301
+        bridge_maxwait  5
+        bridge_fd       1
+        bridge_stp      on
+
+
+auto br900
+iface br900 inet manual
+        bridge_ports    enp11s0f1.900
+        bridge_maxwait  5
+        bridge_fd       1
+        bridge_stp      on
